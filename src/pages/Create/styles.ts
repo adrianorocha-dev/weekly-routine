@@ -25,11 +25,20 @@ export default StyleSheet.create({
   },
 
   headerOfheader:{
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'relative',
     flexDirection: "row",
+    width: '90%'
+  },
+
+  Icon: {
+    position: 'absolute',
+    left: 0,
   },
 
   logo:{
-
+    alignItems: 'center',
   },
 
   titlePage:{
@@ -42,9 +51,25 @@ export default StyleSheet.create({
     fontWeight: 'bold',
   },
 
+  scroll:{
+    alignItems: 'center',
+  },
+
   form:{
     width: '100%',
     alignItems: 'center',
+  },
+
+  select:{
+    width: '90%',
+    borderStyle: 'solid',
+    borderWidth: 1,
+    borderColor: '#00000040',
+    borderRadius: 8,
+    fontSize: 16,
+    paddingHorizontal: 0,
+    marginHorizontal: 0,
+    marginTop: 30,
   },
 
   duration:{
@@ -83,15 +108,19 @@ export default StyleSheet.create({
     alignItems: 'center',
     width: '100%',
     marginTop: '10%',
-    paddingLeft: '12%',
     marginBottom: '-10%',
-    
 },
 
-flatlist:{},
+flatlist:{
+  width: '100%',
+  justifyContent: 'space-between',
+  paddingHorizontal: 20,
+},
 
 button:{
-    marginRight: 15
+    borderRadius: 50,
+    width: 25,
+    height: 25,
 },
 
 saveButton:{
