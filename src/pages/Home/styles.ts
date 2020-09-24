@@ -1,17 +1,79 @@
 import { StyleSheet } from 'react-native';
+import Constants from 'expo-constants';
 
 export default StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: 'flex-start',
+    alignItems: 'stretch',
 
     position: 'relative',
+
+    backgroundColor: '#fff',
   },
 
   backgroundImage: {
     position: 'absolute',
     right: 0,
     bottom: 0,
+    zIndex: -1,
+  },
+
+  header: {
+    width: '100%',
+    backgroundColor: '#F3F3F3',
+  },
+
+  headerRow: {
+    paddingHorizontal: 20,
+
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+
+  headerRowFirst: {
+    marginTop: Constants.statusBarHeight,
+  },
+
+  headerRowLast: {
+    marginVertical: 5,
+  },
+
+  headerButton: {
+    padding: 7,
+    borderRadius: 50,
+  },
+
+  dayOfWeek: {
+    width: 50,
+    height: 50,
+    borderRadius: 50,
+
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  dayOfWeekText: {
+    fontWeight: '700',
+  },
+
+  dayOfWeekEndText: {
+    color: '#FF5D5D',
+  },
+
+  todayDateText: {
+    fontSize: 16,
+    fontWeight: '700',
+    textAlign: 'center',
+    marginBottom: 8,
+  },
+
+  content: {
+    flex: 1,
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+
+    padding: 20,
   },
 });
