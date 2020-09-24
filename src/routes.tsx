@@ -16,7 +16,7 @@ const Routes: React.FC = () => {
       <Stack.Navigator
         initialRouteName="Home"
         screenOptions={{
-          headerShown: true,
+          headerShown: false,
           headerTitleAlign: 'center',
         }}
       >
