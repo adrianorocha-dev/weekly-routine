@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Image, TouchableOpacity, Text } from 'react-native';
 
 import backgroundImage from '../../assets/background-detail-page.png';
@@ -9,9 +9,53 @@ import styles from './styles';
 import { MaterialIcons as Icon } from '@expo/vector-icons';
 
 import { useNavigation } from '@react-navigation/native';
+import { ScrollView } from 'react-native-gesture-handler';
+
+const dataTest = {
+  day: 'Segunda',
+  title: 'Trabalho de PDSI1',
+  timeStart: '08:00',
+  timeEnd: '12:00',
+  description:
+    'O cuidado em identificar pontos críticos no julgamento imparcial \
+  das eventualidades causa impacto indireto na reavaliação das direções preferenciais \
+  no sentido do progresso.O cuidado em identificar pontos críticos no julgamento imparcial \
+  das eventualidades causa impacto indireto na reavaliação das direções preferenciais \
+  no sentido do progresso.O cuidado em identificar pontos críticos no julgamento imparcial \
+  das eventualidades causa impacto indireto na reavaliação das direções preferenciais \
+  no sentido do progresso.O cuidado em identificar pontos críticos no julgamento imparcial \
+  das eventualidades causa impacto indireto na reavaliação das direções preferenciais \
+  no sentido do progresso.',
+  tagColor: '#BE45F8',
+};
 
 const Detail: React.FC = () => {
   const navigation = useNavigation();
+
+  const [day, setDay] = useState('');
+  const [title, setTitle] = useState('');
+  const [timeStart, setTimeStart] = useState('');
+  const [timeEnd, setTimeEnd] = useState('');
+  const [description, setDescription] = useState('');
+  const [tagColor, setTagColor] = useState('#45EDF8');
+
+  const data = {
+    day,
+    title,
+    timeStart,
+    timeEnd,
+    description,
+    tagColor,
+  };
+
+  useEffect(() => {
+    setDay(dataTest.day);
+    setTimeStart(dataTest.timeStart);
+    setTimeEnd(dataTest.timeEnd);
+    setTitle(dataTest.title);
+    setDescription(dataTest.description);
+    setTagColor(dataTest.tagColor);
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -47,7 +91,7 @@ const Detail: React.FC = () => {
         </View>
 
         <View style={styles.titlePage}>
-          <Text style={styles.textTile}> TituloCompromisso </Text>
+          <Text style={styles.textTile}> {title} </Text>
         </View>
       </View>
 
@@ -58,25 +102,32 @@ const Detail: React.FC = () => {
 
         <View style={styles.tagTime}>
           <View style={styles.tag}>
-            <Icon name="lens" size={12} color="#ff5d5d" />
-            <Text>8:00</Text>
+            <Icon name="lens" size={12} color="#FF5D5D" />
+            <Text>{timeStart}</Text>
           </View>
 
           <View style={styles.tag}>
-            <Icon name="lens" size={12} color="#ff5d5d" />
-            <Text>12:00</Text>
+            <Icon name="lens" size={12} color="#FF5D5D" />
+            <Text>{timeEnd}</Text>
           </View>
         </View>
 
         <View style={styles.detail}>
           <View style={styles.task}>
-            <View style={styles.tagColor}>
-              <Icon name="lens" size={25} color="#45EDF8" />
-            </View>
+            <ScrollView
+              style={{ flex: 1, marginBottom: '11%' }}
+              showsVerticalScrollIndicator={true}
+            >
+              <View style={styles.tagColor}>
+                <Icon name="lens" size={25} color={tagColor} />
+              </View>
 
-            <Text style={styles.titulo}> Terça-feira das 8:00 às 12:00 </Text>
+              <Text style={styles.headerTask}>
+                {day} das {timeStart} às {timeEnd}
+              </Text>
 
-            <Text style={styles.descricao}>Descrição do compromissso</Text>
+              <Text style={styles.description}>{description}</Text>
+            </ScrollView>
           </View>
         </View>
       </View>
