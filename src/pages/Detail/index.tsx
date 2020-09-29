@@ -1,60 +1,77 @@
 import React, { useEffect, useState } from 'react';
-import { View, Image, TouchableOpacity, Text } from 'react-native';
+import {
+  View,
+  Image,
+  TouchableOpacity,
+  Text,
+  Alert,
+  ScrollView,
+} from 'react-native';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { MaterialIcons as Icon } from '@expo/vector-icons';
+
+import { Appointment } from '../../database/entities/Appointment';
+import minutesToHours from '../../utils/minutesToHours';
 
 import backgroundImage from '../../assets/background-detail-page.png';
 import Logo from '../../assets/logo.png';
 import line from '../../assets/Line.png';
+
 import styles from './styles';
 
-import { MaterialIcons as Icon } from '@expo/vector-icons';
-
-import { useNavigation } from '@react-navigation/native';
-import { ScrollView } from 'react-native-gesture-handler';
-
-const dataTest = {
-  day: 'Segunda',
-  title: 'Trabalho de PDSI1',
-  timeStart: '08:00',
-  timeEnd: '12:00',
-  description:
-    'O cuidado em identificar pontos críticos no julgamento imparcial \
-  das eventualidades causa impacto indireto na reavaliação das direções preferenciais \
-  no sentido do progresso.O cuidado em identificar pontos críticos no julgamento imparcial \
-  das eventualidades causa impacto indireto na reavaliação das direções preferenciais \
-  no sentido do progresso.O cuidado em identificar pontos críticos no julgamento imparcial \
-  das eventualidades causa impacto indireto na reavaliação das direções preferenciais \
-  no sentido do progresso.O cuidado em identificar pontos críticos no julgamento imparcial \
-  das eventualidades causa impacto indireto na reavaliação das direções preferenciais \
-  no sentido do progresso.',
-  tagColor: '#BE45F8',
+type RouteParams = {
+  id: number;
 };
 
+const weekDays = [
+  'Domingo',
+  'Segunda-feira',
+  'Terça-feira',
+  'Quarta-feira',
+  'Quinta-feira',
+  'Sexta-feira',
+  'Sábado',
+];
+
 const Detail: React.FC = () => {
+  const [appointment, setAppointment] = useState<Appointment>();
+
+  const route = useRoute();
+  const params = route.params as RouteParams;
+
   const navigation = useNavigation();
 
-  const [day, setDay] = useState('');
-  const [title, setTitle] = useState('');
-  const [timeStart, setTimeStart] = useState('');
-  const [timeEnd, setTimeEnd] = useState('');
-  const [description, setDescription] = useState('');
-  const [tagColor, setTagColor] = useState('#45EDF8');
+  async function handleDeleteAppointment() {
+    Alert.alert('Atenção', 'Tem certeza que deseja deletar o compromisso?', [
+      { text: 'Não' },
+      {
+        text: 'Sim',
+        onPress: () => {
+          appointment
+            .remove()
+            .then(() => {
+              Alert.alert('Deletado com sucesso', '');
 
-  const data = {
-    day,
-    title,
-    timeStart,
-    timeEnd,
-    description,
-    tagColor,
-  };
+              navigation.navigate('Home');
+            })
+            .catch(error => {
+              console.error(error);
+
+              Alert.alert('Erro', 'Erro ao deletar compromisso');
+            });
+        },
+      },
+    ]);
+  }
 
   useEffect(() => {
-    setDay(dataTest.day);
-    setTimeStart(dataTest.timeStart);
-    setTimeEnd(dataTest.timeEnd);
-    setTitle(dataTest.title);
-    setDescription(dataTest.description);
-    setTagColor(dataTest.tagColor);
+    Appointment.findOne(params.id)
+      .then(appointment => {
+        setAppointment(appointment);
+      })
+      .catch(error => {
+        console.error(error);
+      });
   }, []);
 
   return (
@@ -79,19 +96,22 @@ const Detail: React.FC = () => {
           <View style={styles.icons}>
             <TouchableOpacity
               style={styles.icon}
-              onPress={() => navigation.navigate('Edit')}
+              onPress={() => navigation.navigate('Edit', { id: params.id })}
             >
               <Icon name="edit" size={24} color="#FF5D5D" />
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.icon}>
+            <TouchableOpacity
+              style={styles.icon}
+              onPress={handleDeleteAppointment}
+            >
               <Icon name="delete" size={24} color="#FF5D5D" />
             </TouchableOpacity>
           </View>
         </View>
 
         <View style={styles.titlePage}>
-          <Text style={styles.textTile}> {title} </Text>
+          <Text style={styles.textTile}>{appointment?.title}</Text>
         </View>
       </View>
 
@@ -102,13 +122,13 @@ const Detail: React.FC = () => {
 
         <View style={styles.tagTime}>
           <View style={styles.tag}>
-            <Icon name="lens" size={12} color="#FF5D5D" />
-            <Text>{timeStart}</Text>
+            <Icon name="lens" size={12} color="#ff5d5d" />
+            <Text>{minutesToHours(appointment?.startTime)}</Text>
           </View>
 
           <View style={styles.tag}>
-            <Icon name="lens" size={12} color="#FF5D5D" />
-            <Text>{timeEnd}</Text>
+            <Icon name="lens" size={12} color="#ff5d5d" />
+            <Text>{minutesToHours(appointment?.finishTime)}</Text>
           </View>
         </View>
 
@@ -119,14 +139,16 @@ const Detail: React.FC = () => {
               showsVerticalScrollIndicator={true}
             >
               <View style={styles.tagColor}>
-                <Icon name="lens" size={25} color={tagColor} />
+                <Icon name="lens" size={25} color={appointment?.color} />
               </View>
 
               <Text style={styles.headerTask}>
-                {day} das {timeStart} às {timeEnd}
+                {weekDays[appointment?.weekDay]} das{' '}
+                {minutesToHours(appointment?.startTime)} às{' '}
+                {minutesToHours(appointment?.finishTime)}
               </Text>
 
-              <Text style={styles.description}>{description}</Text>
+              <Text style={styles.description}>{appointment?.description}</Text>
             </ScrollView>
           </View>
         </View>

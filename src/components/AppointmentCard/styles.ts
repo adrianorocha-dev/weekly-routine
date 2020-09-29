@@ -2,10 +2,11 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
   card: {
-    width: '85%',
+    width: 300,
     height: 80,
     backgroundColor: '#F3F3F3',
     borderRadius: 8,
+    elevation: 4,
 
     justifyContent: 'center',
     alignItems: 'center',
