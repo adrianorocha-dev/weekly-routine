@@ -76,4 +76,13 @@ export default StyleSheet.create({
 
     padding: 20,
   },
+
+  searchInput: {
+    flex: 1,
+    borderWidth: 1,
+    borderStyle: 'solid',
+    borderColor: 'black',
+    borderRadius: 8,
+    paddingHorizontal: 8,
+  },
 });

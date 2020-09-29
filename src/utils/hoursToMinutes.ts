@@ -12,7 +12,7 @@ export default function timeToMinutes(time: string) {
   const [h, m] = time.split(':');
 
   const hours = Number(h);
-  const minutes = Number(h);
+  const minutes = Number(m);
 
   return hours * 60 + minutes;
 }

@@ -15,39 +15,38 @@ export default StyleSheet.create({
     bottom: 0,
   },
 
-  header:{
+  header: {
     backgroundColor: '#f3f3f3',
     alignItems: 'center',
     justifyContent: 'center',
-    display: "flex",
+    display: 'flex',
     width: '100%',
     height: '15%',
-    paddingTop:10,
+    paddingTop: 10,
   },
 
-  hedaerOfheader:{
+  hedaerOfheader: {
     justifyContent: 'space-between',
-    flexDirection: "row",
+    flexDirection: 'row',
   },
 
-  iconBack:{
-    justifyContent: "flex-start",
+  iconBack: {
+    justifyContent: 'flex-start',
   },
 
-  imgLogo:{
+  imgLogo: {
     marginHorizontal: 95,
     marginRight: 55,
-    justifyContent: "space-between",
-  },
-
-  icons:{
     justifyContent: 'space-between',
-    flexDirection: "row",
-    alignItems: 'flex-end',
-    
   },
 
-  icon:{
+  icons: {
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+  },
+
+  icon: {
     marginLeft: 0,
     marginRight: 15,
   },
@@ -57,13 +56,13 @@ export default StyleSheet.create({
     paddingTop: 25,
   },
 
-  textTile:{
+  textTile: {
     fontWeight: 'bold',
   },
 
-  body:{
+  body: {
     justifyContent: 'space-between',
-    flexDirection: "row",
+    flexDirection: 'row',
   },
 
   line: {
@@ -77,54 +76,52 @@ export default StyleSheet.create({
     height: '100%',
   },
 
-  tagTime:{
+  tagTime: {
     paddingTop: '10%',
-    justifyContent: "space-between",
+    justifyContent: 'space-between',
     height: '60%',
     left: 15,
   },
 
-  tag:{
-    justifyContent: "space-between",
+  tag: {
+    justifyContent: 'space-between',
     flexDirection: 'row',
   },
 
-  detail:{
+  detail: {
     width: '90%',
     alignItems: 'flex-end',
     paddingRight: '2%',
     paddingTop: 100,
   },
 
-  tagColor:{
-      width: '100%',
-      alignItems: 'flex-end',
-      paddingHorizontal: 5,
-      paddingTop: 5,
+  task: {
+    backgroundColor: '#f3f3f3',
+    marginBottom: 40,
+    borderRadius: 8,
+    display: 'flex',
+    width: '90%',
+    height: 250,
+    marginRight: '10%',
+    padding: 30,
+    position: 'relative',
+  },
 
-    },
+  tagColor: {
+    position: 'absolute',
+    width: '100%',
+    alignItems: 'flex-end',
+    top: 5,
+    right: 5,
+  },
 
-    task: {
-      backgroundColor: '#f3f3f3',
-      marginBottom: 40,
-      borderRadius: 8,
-      display: 'flex',
-      width: '90%',
-      height: 250,
-      marginRight: '10%',
-    },
-  
-    titulo:{
-      fontWeight: 'bold',
-      fontSize: 16,
-      left: '10%',
-    
-    },
-  
-    descricao:{
-      paddingTop: 30,
-      color: 'gray',
-      left: '15%',
-    },
+  titulo: {
+    fontWeight: 'bold',
+    fontSize: 16,
+  },
 
+  descricao: {
+    paddingTop: 30,
+    color: 'gray',
+  },
 });
