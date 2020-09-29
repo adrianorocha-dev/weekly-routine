@@ -133,8 +133,9 @@ const Create: React.FC = () => {
         <View style={styles.form}>
           <View style={styles.select}>
             <Picker
-              selectedValue={selectedDay}
               style={{ height: 40 }}
+              mode="dropdown"
+              selectedValue={selectedDay}
               onValueChange={itemValue => {
                 setSelectedDay(Number(itemValue));
               }}

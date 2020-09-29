@@ -127,10 +127,11 @@ const Edit: React.FC = () => {
         <View style={styles.form}>
           <View style={styles.select}>
             <Picker
-              selectedValue={day}
               style={{ height: 40 }}
+              mode="dropdown"
+              selectedValue={day}
               onValueChange={itemValue => {
-                setDay(Number(itemValue));
+                if (itemValue) setDay(Number(itemValue));
               }}
             >
               <Picker.Item
