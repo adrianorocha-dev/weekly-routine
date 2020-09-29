@@ -12,6 +12,15 @@ export default StyleSheet.create({
     backgroundColor: '#fff',
   },
 
+  button: {
+    flexDirection: 'row',
+    padding: 10,
+  },
+
+  pie: {
+    // position: 'relative',
+  },
+
   backgroundImage: {
     position: 'absolute',
     right: 0,
@@ -25,8 +34,6 @@ export default StyleSheet.create({
   },
 
   headerRow: {
-    paddingHorizontal: 20,
-
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
