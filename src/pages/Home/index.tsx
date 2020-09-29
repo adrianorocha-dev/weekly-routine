@@ -1,14 +1,23 @@
-import React, { useState } from 'react';
-import { View, Image, Text, TouchableOpacity } from 'react-native';
-import { RectButton } from 'react-native-gesture-handler';
+import React, { useCallback, useEffect, useState } from 'react';
+import {
+  View,
+  Image,
+  Text,
+  TouchableOpacity,
+  RefreshControl,
+} from 'react-native';
+import { FlatList, RectButton, TextInput } from 'react-native-gesture-handler';
 import { MaterialIcons as Icon } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import { Like } from 'typeorm-expo/browser';
+
+import AppointmentCard from '../../components/AppointmentCard';
+import { Appointment } from '../../database/entities/Appointment';
 
 import backgroundImg from '../../assets/background-home.png';
 import logoImg from '../../assets/logo.png';
 
 import styles from './styles';
-import AppointmentCard from '../../components/AppointmentCard';
 
 const weekDays = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'];
 const isWorkingDay = (day: string) => day !== 'Dom' && day !== 'Sab';
@@ -17,11 +26,55 @@ const Home: React.FC = () => {
   const today = new Date();
 
   const [selectedDay, setSelectedDay] = useState(today.getDay());
+  const [appointments, setAppointments] = useState<Appointment[]>([]);
+  const [refreshing, setRefreshing] = useState(false);
+  const [searching, setSearching] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
 
   const navigation = useNavigation();
 
+  const fetchAppointments = useCallback(async () => {
+    const appointments = await Appointment.find({
+      where: { weekDay: selectedDay },
+    });
+
+    setAppointments(appointments);
+  }, [selectedDay]);
+
+  useEffect(() => {
+    fetchAppointments();
+  }, [fetchAppointments]);
+
+  useEffect(() => {
+    if (searchTerm.length > 2) {
+      searchAppointments(searchTerm);
+    }
+  }, [searchTerm]);
+
+  useEffect(() => {
+    if (!searching) {
+      setSearchTerm('');
+      fetchAppointments();
+    }
+  }, [searching, fetchAppointments]);
+
   function handleCreateAppointment() {
     navigation.navigate('Create');
+  }
+
+  function handleOpenAppointment(id: number) {
+    navigation.navigate('Detail', { id });
+  }
+
+  async function searchAppointments(term: string) {
+    const results = await Appointment.find({
+      where: [
+        { title: Like(`%${searchTerm}%`) },
+        { description: Like(`%${searchTerm}%`) },
+      ],
+    });
+
+    setAppointments(results);
   }
 
   return (
@@ -30,82 +83,93 @@ const Home: React.FC = () => {
 
       <View style={styles.header}>
         <View style={[styles.headerRow, styles.headerRowFirst]}>
-          <RectButton style={styles.headerButton} rippleColor="#777">
-            <Icon name="search" size={24} />
-          </RectButton>
-
-          <Image source={logoImg} />
-
           <RectButton
             style={styles.headerButton}
             rippleColor="#777"
-            onPress={handleCreateAppointment}
+            onPress={() => setSearching(value => !value)}
           >
-            <Icon name="add" size={24} color="#FF5D5D" />
+            <Icon name="search" size={24} />
           </RectButton>
+
+          {searching ? (
+            <TextInput
+              autoFocus={true}
+              style={styles.searchInput}
+              value={searchTerm}
+              onChangeText={text => setSearchTerm(text)}
+            />
+          ) : (
+            <>
+              <Image source={logoImg} />
+
+              <RectButton
+                style={styles.headerButton}
+                rippleColor="#777"
+                onPress={handleCreateAppointment}
+              >
+                <Icon name="add" size={24} color="#FF5D5D" />
+              </RectButton>
+            </>
+          )}
         </View>
 
         <View style={[styles.headerRow, styles.headerRowLast]}>
-          {weekDays.map((day, index) => (
-            <TouchableOpacity
-              key={day}
-              style={[
-                styles.dayOfWeek,
-                selectedDay === index ? { backgroundColor: '#FF5D5D' } : {},
-                today.getDay() === index
-                  ? {
-                      borderWidth: 1,
-                      borderColor: '#FF5D5D',
-                      borderStyle: 'solid',
-                    }
-                  : {},
-              ]}
-              activeOpacity={0.5}
-              onPress={() => setSelectedDay(index)}
-            >
-              <Text
+          {!searching &&
+            weekDays.map((day, index) => (
+              <TouchableOpacity
+                key={day}
                 style={[
-                  styles.dayOfWeekText,
-                  !isWorkingDay(day) ? styles.dayOfWeekEndText : {},
-                  selectedDay === index ? { color: '#fff' } : {},
+                  styles.dayOfWeek,
+                  selectedDay === index ? { backgroundColor: '#FF5D5D' } : {},
+                  today.getDay() === index
+                    ? {
+                        borderWidth: 1,
+                        borderColor: '#FF5D5D',
+                        borderStyle: 'solid',
+                      }
+                    : {},
                 ]}
+                activeOpacity={0.5}
+                onPress={() => setSelectedDay(index)}
               >
-                {day}
-              </Text>
-            </TouchableOpacity>
-          ))}
+                <Text
+                  style={[
+                    styles.dayOfWeekText,
+                    !isWorkingDay(day) ? styles.dayOfWeekEndText : {},
+                    selectedDay === index ? { color: '#fff' } : {},
+                  ]}
+                >
+                  {day}
+                </Text>
+              </TouchableOpacity>
+            ))}
         </View>
 
         <Text style={styles.todayDateText}>{today.toLocaleDateString()}</Text>
       </View>
 
-      <View style={styles.content}>
-        <AppointmentCard
-          name="Compromisso teste 1"
-          color="blue"
-          onPress={() => navigation.navigate('Detail')}
-        />
-        <AppointmentCard
-          name="Compromisso teste 2"
-          color="green"
-          onPress={() => navigation.navigate('Detail')}
-        />
-        <AppointmentCard
-          name="Compromisso teste 3"
-          color="yellow"
-          onPress={() => navigation.navigate('Detail')}
-        />
-        <AppointmentCard
-          name="Compromisso teste 4"
-          color="red"
-          onPress={() => navigation.navigate('Detail')}
-        />
-        <AppointmentCard
-          name="Compromisso teste 5"
-          color="black"
-          onPress={() => navigation.navigate('Detail')}
-        />
-      </View>
+      <FlatList
+        contentContainerStyle={styles.content}
+        data={appointments}
+        keyExtractor={appointment => String(appointment.id)}
+        renderItem={({ item }) => (
+          <AppointmentCard
+            name={item.title}
+            color={item.color}
+            onPress={() => handleOpenAppointment(item.id)}
+          />
+        )}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={async () => {
+              setRefreshing(true);
+              await fetchAppointments();
+              setRefreshing(false);
+            }}
+          />
+        }
+      />
     </View>
   );
 };

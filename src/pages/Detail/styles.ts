@@ -35,8 +35,8 @@ export default StyleSheet.create({
   },
 
   imgLogo: {
-    marginHorizontal: '22%',
-    marginRight: '12%',
+    marginHorizontal: 95,
+    marginRight: 55,
     justifyContent: 'space-between',
   },
 
@@ -77,9 +77,9 @@ export default StyleSheet.create({
   },
 
   tagTime: {
-    paddingTop: '5%',
+    paddingTop: '10%',
     justifyContent: 'space-between',
-    height: '59%',
+    height: '60%',
     left: 15,
   },
 
@@ -97,19 +97,22 @@ export default StyleSheet.create({
 
   task: {
     backgroundColor: '#f3f3f3',
-    marginBottom: '10%',
+    marginBottom: 40,
     borderRadius: 8,
     display: 'flex',
     width: '90%',
     height: 250,
     marginRight: '10%',
+    padding: 30,
+    position: 'relative',
   },
 
   tagColor: {
+    position: 'absolute',
     width: '100%',
     alignItems: 'flex-end',
-    paddingHorizontal: 5,
-    paddingTop: 5,
+    top: 5,
+    right: 5,
   },
 
   headerTask: {
