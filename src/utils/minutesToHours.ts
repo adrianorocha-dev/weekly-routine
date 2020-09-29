@@ -1,5 +1,4 @@
 export default function minutesToHours(totalMinutes: number) {
-  console.log(totalMinutes);
   const hours = Math.floor(totalMinutes / 60);
 
   const minutes = totalMinutes - hours * 60;

@@ -115,13 +115,16 @@ export default StyleSheet.create({
     right: 5,
   },
 
-  titulo: {
+  headerTask: {
     fontWeight: 'bold',
     fontSize: 16,
+    paddingHorizontal: '15%',
   },
 
-  descricao: {
+  description: {
     paddingTop: 30,
     color: 'gray',
+    paddingHorizontal: '5%',
+    textAlign: 'justify',
   },
 });

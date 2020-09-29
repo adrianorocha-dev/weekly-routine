@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { View, Image, TouchableOpacity, Text, Alert } from 'react-native';
+import {
+  View,
+  Image,
+  TouchableOpacity,
+  Text,
+  Alert,
+  ScrollView,
+} from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { MaterialIcons as Icon } from '@expo/vector-icons';
 
@@ -127,17 +134,22 @@ const Detail: React.FC = () => {
 
         <View style={styles.detail}>
           <View style={styles.task}>
-            <View style={styles.tagColor}>
-              <Icon name="lens" size={25} color="#45EDF8" />
-            </View>
+            <ScrollView
+              style={{ flex: 1, marginBottom: '11%' }}
+              showsVerticalScrollIndicator={true}
+            >
+              <View style={styles.tagColor}>
+                <Icon name="lens" size={25} color={appointment?.color} />
+              </View>
 
-            <Text style={styles.titulo}>
-              {weekDays[appointment?.weekDay]} das{' '}
-              {minutesToHours(appointment?.startTime)} às{' '}
-              {minutesToHours(appointment?.finishTime)}
-            </Text>
+              <Text style={styles.headerTask}>
+                {weekDays[appointment?.weekDay]} das{' '}
+                {minutesToHours(appointment?.startTime)} às{' '}
+                {minutesToHours(appointment?.finishTime)}
+              </Text>
 
-            <Text style={styles.descricao}>{appointment?.description}</Text>
+              <Text style={styles.description}>{appointment?.description}</Text>
+            </ScrollView>
           </View>
         </View>
       </View>

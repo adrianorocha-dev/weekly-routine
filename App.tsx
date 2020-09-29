@@ -18,7 +18,6 @@ const App: React.FC = () => {
     if (!connectionReady) {
       try {
         const connection = getConnection();
-        console.log('Got connction ', connection.name);
       } catch (error) {
         createConnection({
           type: 'expo',
@@ -28,7 +27,6 @@ const App: React.FC = () => {
         })
           .then(() => {
             setConnectionReady(true);
-            console.log('Connection created');
           })
           .catch(error => {
             console.error(error);

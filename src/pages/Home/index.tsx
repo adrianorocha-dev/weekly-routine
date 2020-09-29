@@ -38,8 +38,6 @@ const Home: React.FC = () => {
       where: { weekDay: selectedDay },
     });
 
-    console.log(appointments);
-
     setAppointments(appointments);
   }, [selectedDay]);
 
