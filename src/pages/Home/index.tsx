@@ -36,13 +36,23 @@ const Home: React.FC = () => {
 
           <Image source={logoImg} />
 
-          <RectButton
-            style={styles.headerButton}
-            rippleColor="#777"
-            onPress={handleCreateAppointment}
-          >
-            <Icon name="add" size={24} color="#FF5D5D" />
-          </RectButton>
+          <View style={styles.button}>
+            <RectButton
+              style={styles.headerButton}
+              rippleColor="#777"
+              onPress={handleCreateAppointment}
+            >
+              <Icon name="add" size={24} color="#FF5D5D" />
+            </RectButton>
+
+            <RectButton
+              style={styles.headerButton}
+              rippleColor="#777"
+              onPress={() => navigation.navigate('Report')}
+            >
+              <Icon name="pie-chart" size={24} color="#FF5D5D" />
+            </RectButton>
+          </View>
         </View>
 
         <View style={[styles.headerRow, styles.headerRowLast]}>
