@@ -1,92 +1,72 @@
-import React from 'react';
-import { View, Text, Image, TouchableOpacity, ScrollView } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  ScrollView,
+  Dimensions,
+} from 'react-native';
+import { MaterialIcons as Icon } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
+import { PieChart, BarChart } from 'react-native-chart-kit';
 
-import styles from './styles';
+import { Appointment } from '../../database/entities/Appointment';
 
 import Logo from '../../assets/logo.png';
 
-import { MaterialIcons as Icon } from '@expo/vector-icons';
+import styles from './styles';
 
-import { useNavigation, useRoute } from '@react-navigation/native';
-
-import { PieChart, BarChart } from 'react-native-chart-kit';
-
-import { Dimensions } from 'react-native';
 const screenWidth = Dimensions.get('window').width;
 
 const Report: React.FC = () => {
-  const pieData = [
-    {
-      name: 'Tarefa 1',
-      population: 15,
-      color: '#45EDF8',
-      legendFontColor: '#7F7F7F',
-      legendFontSize: 15,
-    },
-    {
-      name: 'Tarefa 2',
-      population: 5,
-      color: '#45F86C',
-      legendFontColor: '#7F7F7F',
-      legendFontSize: 15,
-    },
-    {
-      name: 'Tarefa 3',
-      population: 2,
-      color: '#F4F845',
-      legendFontColor: '#7F7F7F',
-      legendFontSize: 15,
-    },
-    {
-      name: 'Tarefa 4',
-      population: 10,
-      color: '#F89B45',
-      legendFontColor: '#7F7F7F',
-      legendFontSize: 15,
-    },
-    {
-      name: 'Tarefa 5',
-      population: 6,
-      color: '#F84545',
-      legendFontColor: '#7F7F7F',
-      legendFontSize: 15,
-    },
+  const [appointments, setAppointments] = useState<Appointment[]>([]);
+  const [dalyAppointments, setDalyAppointments] = useState([
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+  ]);
 
-    {
-      name: 'Tarefa 6',
-      population: 1,
-      color: '#4577F8',
-      legendFontColor: '#7F7F7F',
-      legendFontSize: 15,
-    },
+  const navegation = useNavigation();
 
-    {
-      name: 'Tarefa 7',
-      population: 8,
-      color: '#BE45F8',
-      legendFontColor: '#7F7F7F',
-      legendFontSize: 15,
-    },
+  useEffect(() => {
+    Appointment.find()
+      .then(appointments => {
+        setAppointments(appointments);
 
-    {
-      name: 'Tarefa 8',
-      population: 7,
-      color: '#C7C7C7',
-      legendFontColor: '#7F7F7F',
-      legendFontSize: 15,
-    },
-  ];
+        const appointmentsCount = [0, 0, 0, 0, 0, 0, 0];
+
+        appointments.forEach(appointment => {
+          appointmentsCount[appointment.weekDay]++;
+        });
+
+        setDalyAppointments(appointmentsCount);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }, []);
+
+  const pieData = appointments.map(appointment => ({
+    name: appointment.title,
+    population: appointment.finishTime - appointment.startTime,
+    color: appointment.color,
+    legendFontColor: '#7F7F7F',
+    legendFontSize: 15,
+  }));
 
   const barData = {
     labels: ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab', 'Dom'],
     datasets: [
       {
-        data: [2, 4, 5, 8, 0, 9, 3],
+        data: dalyAppointments,
       },
     ],
   };
-
-  const navegation = useNavigation();
 
   return (
     <View style={styles.container}>
