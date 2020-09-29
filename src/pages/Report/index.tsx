@@ -76,7 +76,7 @@ const Report: React.FC = () => {
 
           <TouchableOpacity
             style={styles.Icon}
-            onPress={() => navegation.navigate('Home')}
+            onPress={() => navegation.goBack()}
           >
             <Icon name="arrow-back" size={18} color="#ff5d5d" />
           </TouchableOpacity>

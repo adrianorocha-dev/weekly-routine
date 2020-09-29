@@ -112,7 +112,7 @@ const Create: React.FC = () => {
         <View style={styles.headerOfheader}>
           <TouchableOpacity
             style={styles.Icon}
-            onPress={() => navigation.navigate('Home')}
+            onPress={() => navigation.goBack()}
           >
             <MIcon name="arrow-back" size={18} color="#ff5d5d" />
           </TouchableOpacity>
