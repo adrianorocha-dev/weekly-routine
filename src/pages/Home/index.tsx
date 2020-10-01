@@ -83,13 +83,15 @@ const Home: React.FC = () => {
 
       <View style={styles.header}>
         <View style={[styles.headerRow, styles.headerRowFirst]}>
-          <RectButton
-            style={styles.headerButton}
-            rippleColor="#777"
-            onPress={() => setSearching(value => !value)}
-          >
-            <Icon name="search" size={24} />
-          </RectButton>
+          <View style={styles.headerButtonsLeft}>
+            <RectButton
+              style={styles.headerButton}
+              rippleColor="#777"
+              onPress={() => setSearching(value => !value)}
+            >
+              <Icon name="search" size={24} />
+            </RectButton>
+          </View>
 
           {searching ? (
             <TextInput
@@ -102,7 +104,7 @@ const Home: React.FC = () => {
             <>
               <Image source={logoImg} />
 
-              <View style={styles.button}>
+              <View style={styles.headerButtonsRight}>
                 <RectButton
                   style={styles.headerButton}
                   rippleColor="#777"
