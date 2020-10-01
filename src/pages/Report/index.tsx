@@ -60,7 +60,7 @@ const Report: React.FC = () => {
   }));
 
   const barData = {
-    labels: ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab', 'Dom'],
+    labels: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'],
     datasets: [
       {
         data: dalyAppointments,
