@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   Alert,
 } from 'react-native';
+
 import { MaterialIcons as MIcon } from '@expo/vector-icons';
 import { Picker } from '@react-native-community/picker';
 import { useNavigation } from '@react-navigation/native';
@@ -16,6 +17,13 @@ import { useNavigation } from '@react-navigation/native';
 import { Appointment } from '../../database/entities/Appointment';
 
 import hoursToMinutes from '../../utils/hoursToMinutes';
+
+import {
+  createFormValidator,
+  validateFinishTimeBiggerThanStartTime,
+  validateHourFormat,
+  validateNoEmptyFields,
+} from '../../utils/formValidation';
 
 import backgroundImage from '../../assets/background-create-page.png';
 import Logo from '../../assets/logo.png';
@@ -43,6 +51,12 @@ const weekDays = [
   'Sábado',
 ];
 
+const formValidator = createFormValidator(
+  validateNoEmptyFields,
+  validateHourFormat,
+  validateFinishTimeBiggerThanStartTime
+);
+
 const Create: React.FC = () => {
   const [selectedDay, setSelectedDay] = useState<number>();
   const [title, setTitle] = useState('');
@@ -53,7 +67,7 @@ const Create: React.FC = () => {
 
   const navigation = useNavigation();
 
-  function validateForm() {
+  async function handleCreateAppointment() {
     const formData = {
       selectedDay,
       title,
@@ -63,16 +77,10 @@ const Create: React.FC = () => {
       tagColor,
     };
 
-    const isThereEmptyFields = Object.values(formData).some(
-      value => value === undefined || value === ''
-    );
+    const validationResult = formValidator.validate(formData);
 
-    return !isThereEmptyFields;
-  }
-
-  async function handleCreateAppointment() {
-    if (!validateForm()) {
-      Alert.alert('Erro', 'Preencha todos os campos');
+    if (!validationResult.isValid) {
+      Alert.alert('Erro no formulário', validationResult.errorMessage);
       return;
     }
 

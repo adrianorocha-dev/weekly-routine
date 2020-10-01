@@ -21,6 +21,13 @@ import { Appointment } from '../../database/entities/Appointment';
 import minutesToHours from '../../utils/minutesToHours';
 import hoursToMinutes from '../../utils/hoursToMinutes';
 
+import {
+  createFormValidator,
+  validateFinishTimeBiggerThanStartTime,
+  validateHourFormat,
+  validateNoEmptyFields,
+} from '../../utils/formValidation';
+
 type RouteParams = {
   id: number;
 };
@@ -45,6 +52,12 @@ const weekDays = [
   'Sexta-feira',
   'Sábado',
 ];
+
+const formValidator = createFormValidator(
+  validateNoEmptyFields,
+  validateHourFormat,
+  validateFinishTimeBiggerThanStartTime
+);
 
 const Edit: React.FC = () => {
   const [day, setDay] = useState<number>();
@@ -75,6 +88,22 @@ const Edit: React.FC = () => {
   }, []);
 
   async function handleSave() {
+    const formData = {
+      selectedDay: day,
+      title,
+      timeStart,
+      timeEnd,
+      description,
+      tagColor,
+    };
+
+    const validationResult = formValidator.validate(formData);
+
+    if (!validationResult.isValid) {
+      Alert.alert('Erro no formulário', validationResult.errorMessage);
+      return;
+    }
+
     try {
       await Appointment.update(params.id, {
         weekDay: day,

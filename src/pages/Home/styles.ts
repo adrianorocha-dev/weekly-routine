@@ -12,15 +12,6 @@ export default StyleSheet.create({
     backgroundColor: '#fff',
   },
 
-  button: {
-    flexDirection: 'row',
-    padding: 10,
-  },
-
-  pie: {
-    // position: 'relative',
-  },
-
   backgroundImage: {
     position: 'absolute',
     right: 0,
@@ -35,7 +26,7 @@ export default StyleSheet.create({
 
   headerRow: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     alignItems: 'center',
   },
 
@@ -45,6 +36,18 @@ export default StyleSheet.create({
 
   headerRowLast: {
     marginVertical: 5,
+  },
+
+  headerButtonsRight: {
+    flexDirection: 'row',
+    position: 'absolute',
+    right: 10,
+  },
+
+  headerButtonsLeft: {
+    flexDirection: 'row',
+    position: 'absolute',
+    left: 10,
   },
 
   headerButton: {
@@ -91,5 +94,7 @@ export default StyleSheet.create({
     borderColor: 'black',
     borderRadius: 8,
     paddingHorizontal: 8,
+    marginLeft: 50,
+    marginRight: 10,
   },
 });
