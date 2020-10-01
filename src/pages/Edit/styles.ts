@@ -5,7 +5,7 @@ export default StyleSheet.create({
     flex: 1,
     backgroundColor: 'white',
     position: 'relative',
-    alignItems: 'center'
+    alignItems: 'center',
   },
 
   backgroundImage: {
@@ -14,22 +14,22 @@ export default StyleSheet.create({
     right: 0,
   },
 
-  header:{
+  header: {
     backgroundColor: '#f3f3f3',
     alignItems: 'center',
     justifyContent: 'center',
-    display: "flex",
+    display: 'flex',
     width: '100%',
     height: '15%',
-    paddingTop:10,
+    paddingTop: 10,
   },
 
-  headerOfheader:{
+  headerOfheader: {
     justifyContent: 'center',
     alignItems: 'center',
     position: 'relative',
-    flexDirection: "row",
-    width: '90%'
+    flexDirection: 'row',
+    width: '90%',
   },
 
   Icon: {
@@ -37,32 +37,31 @@ export default StyleSheet.create({
     left: 0,
   },
 
-  logo:{
+  logo: {
     alignItems: 'center',
   },
 
-  titlePage:{
+  titlePage: {
     position: 'relative',
     paddingTop: 25,
   },
 
-
-  textTile:{
+  textTile: {
     fontWeight: 'bold',
   },
 
-  scroll:{
+  scroll: {
     alignItems: 'center',
   },
 
   form: {
     width: '100%',
-    alignItems: "stretch",
+    alignItems: 'stretch',
 
     paddingHorizontal: 20,
   },
 
-  select:{
+  select: {
     backgroundColor: 'white',
     borderStyle: 'solid',
     borderWidth: 1,
@@ -74,12 +73,12 @@ export default StyleSheet.create({
     marginTop: 30,
   },
 
-  duration:{
+  duration: {
     justifyContent: 'space-between',
-    flexDirection: "row",
+    flexDirection: 'row',
   },
 
-  input:{
+  input: {
     backgroundColor: 'white',
     borderStyle: 'solid',
     borderWidth: 1,
@@ -89,7 +88,7 @@ export default StyleSheet.create({
     paddingHorizontal: 4,
     paddingVertical: 4,
     marginTop: 30,
-},
+  },
 
   inputDuration: {
     backgroundColor: 'white',
@@ -104,41 +103,39 @@ export default StyleSheet.create({
     marginTop: 30,
   },
 
-  buttonsColor:{
-    flexDirection: "row",
+  buttonsColor: {
+    flexDirection: 'row',
     alignItems: 'center',
     width: '100%',
     marginTop: '10%',
     marginBottom: '-10%',
-},
+  },
 
-flatlist:{
-  width: '100%',
-  justifyContent: 'space-between',
-  paddingHorizontal: 20,
-},
+  flatlist: {
+    width: '100%',
+    justifyContent: 'space-between',
+    paddingHorizontal: 20,
+  },
 
-button:{
+  button: {
     borderRadius: 50,
     width: 25,
     height: 25,
-},
+  },
 
-saveButton:{
-  backgroundColor: '#ff5d5d',
-  marginTop: 50,
-  width: '90%',
-  height: 40,
-  borderRadius: 8,
-  alignItems: "center",
-  justifyContent: 'center'
-},
+  saveButton: {
+    backgroundColor: '#ff5d5d',
+    marginTop: 50,
+    width: '90%',
+    height: 40,
+    borderRadius: 8,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 
-textButton:{
-  color: '#ffffff',
-  fontWeight: 'bold',
-  fontSize: 18,
-}
-
+  textButton: {
+    color: '#ffffff',
+    fontWeight: 'bold',
+    fontSize: 18,
+  },
 });
-
